@@ -5,8 +5,8 @@ import copy, time
 import math, sys
 import spacy
 import numpy as np
+import pickle
 import subprocess
-from ww import f
 from tqdm import tqdm
 from collections import defaultdict
 from data_utils import Dataset
@@ -63,16 +63,15 @@ def create_vocab():
             vocab[w.text] += 1
 
 
-download_data()
-#create_vocab()
+#download_data()
 
 lang_file = "./models/wiki103.large.lang"
 if not os.path.isfile(lang_file):
     print("Creating vocab file...")
-    en_lang = Lang('wiki')
+    en_lang = Dataset('wiki')
     en_lang.buildLang(open(data_path + f'wiki.{split}.tokens'), num_lines=train_lines)
     with open(lang_file, 'wb') as f:
-        pickle.dump(f, en_lang)
+        pickle.dump(en_lang,f)
 else:
     print("Loading vocab file...")
     en_lang = pickle.load(open('./models/wiki103.large.lang', 'rb'))

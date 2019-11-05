@@ -1,3 +1,4 @@
 .idea/*
 data/*.pth
 data/wiki*
+__pycache__/
